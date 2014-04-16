@@ -9,6 +9,7 @@ import com.rallydev.rest.RallyRestApi;
 import com.rallydev.rest.request.QueryRequest;
 import com.rallydev.rest.response.QueryResponse;
 import com.rallydev.rest.util.Fetch;
+import com.rallydev.rest.util.QueryFilter;
 
 public class Test01 {
 
@@ -16,9 +17,11 @@ public class Test01 {
 		// TODO Auto-generated method stub
 		String host = "https://rally1.rallydev.com";
         String username = "tttvan@tma.com.vn";
-        String password = "";
+        String password = "Ktn@051628";
         String wsapiVersion = "v2.0";
-        String projectRef = "/project/Ringo P-Series";
+        String RingoProjectRef = "/project/7803686457";
+        String SoftswitchProjectRef = "/project/9808582196";
+        String SkyProjectRef = "/project/7803241224";
 //        String workspaceRef = "/workspace/ShoreTel"; 
         String applicationName = "RestExample_GetDefect";
         
@@ -27,29 +30,47 @@ public class Test01 {
 		restApi.setApplicationName(applicationName);
 		try{		 
 			System.out.println("Querying for one test defect");
-			JsonObject defect = new JsonObject();
+//			JsonObject defect = new JsonObject();
 //			defect.addProperty("Workspace", workspaceRef);
-			defect.addProperty("Project", projectRef);
-			defect.addProperty("FormattedID", "10205");
+//			defect.addProperty("Project", projectRef);
+//			defect.addProperty("FormattedID", "10205");
 			
 			QueryRequest qdefect = new QueryRequest("defect");
 			qdefect.setFetch(new Fetch("Name", "Description", "FormattedID"));
-			qdefect.setOrder("FormattedID ASC");
-			qdefect.setProject(projectRef);
-			qdefect.setPageSize(1);
-			qdefect.setLimit(5);
+			qdefect.setQueryFilter(new QueryFilter("SubmittedBy", "=", "bdavis@shoretel.com"));
+			qdefect.setOrder("FormattedID desc");
+			
+			//set project
+			qdefect.setProject(SkyProjectRef);
+//			qdefect.setPageSize(100);
+//			qdefect.setLimit(5);
 			
 			QueryResponse response = restApi.query(qdefect);
+			System.out.println("Query url: " + qdefect.toUrl());
 			if(response.wasSuccessful()){
 				System.out.println(String.format("Total result: %d", response.getTotalResultCount()));
-				System.out.println("Top 5:");
+				System.out.println("Detail:");
 				for(JsonElement je : response.getResults()){
 					JsonObject defect1 = je.getAsJsonObject();
-					System.out.println(String.format("\t%s - %s: %s",
+					System.out.println(String.format("\t%s - %s",
                             defect1.get("FormattedID").getAsString(),
-                            defect1.get("Name").getAsString(),
-                            defect1.get("Description").getAsString()));
+                            defect1.get("Name").getAsString()));
+//                            defect1.get("Description").getAsString()));
                             
+				}
+				for(String t1 : response.getErrors()){
+					System.out.println("Error: "+ t1);
+				}
+				for(String t2 : response.getWarnings()){
+					System.out.println("Warning: "+ t2);
+				}
+			}else{
+				System.out.println("Query fail!");
+				for(String t1 : response.getErrors()){
+					System.out.println("Error: "+ t1);
+				}
+				for(String t2 : response.getWarnings()){
+					System.out.println("Warning: "+ t2);
 				}
 			}
   
@@ -57,6 +78,7 @@ public class Test01 {
 		}
 		finally{
 			restApi.close();
+			System.out.println("Finish!");
 		}
 	}
 

@@ -2,27 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/commons-codec-1.6.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/fluent-hc-4.2.5.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/gson-2.2.4.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/httpclient-4.2.5.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/httpclient-cache-4.2.5.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/httpcore-4.2.4.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/httpmime-4.2.5.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-examples-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-excelant-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-ooxml-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/poi-scratchpad-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/rally-rest-api-2.0.4.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/ooxml-lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/ooxml-lib/stax-api-1.0.1.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/ooxml-lib/xmlbeans-2.3.0.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/commons-codec-1.5.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/fluent-hc-4.2.5.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/httpclient-4.2.5.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/httpclient-cache-4.2.5.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/httpcore-4.2.4.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/httpmime-4.2.5.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse_workspace/RallyRest/lib/rally-rest-api-2.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

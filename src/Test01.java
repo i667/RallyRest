@@ -18,6 +18,7 @@ import com.rallydev.rest.request.QueryRequest;
 import com.rallydev.rest.response.QueryResponse;
 import com.rallydev.rest.util.Fetch;
 import com.rallydev.rest.util.QueryFilter;
+import com.rallydev.rest.util.Ref;
 //import com.rallydev.rest.util.Ref;
 
 public class Test01 {
@@ -28,7 +29,7 @@ public class Test01 {
 //        String username = "tttvan@tma.com.vn";
 //        String password = "Ktn@051628";
 //        String wsapiVersion = "v2.0";
-//        String RingoProjectRef = "/project/7803686457";
+        String RingoProjectRef = "/project/7803686457";
 //        String SoftswitchProjectRef = "/project/9808582196";
 //        String SkyProjectRef = "/project/7803241224";
 ////        String workspaceRef = "/workspace/ShoreTel"; 
@@ -96,46 +97,23 @@ public class Test01 {
 //		}
 		
 //		
-		System.out.println("Begin to get defects");
-		QueryDefect qd = new QueryDefect();
-		System.out.println("Save defect to file");
-		qd.saveToExcel("defects.xlsx");
-		qd.closeQuery();
+//		System.out.println("Begin to get defects");
+//		QueryDefect qd = new QueryDefect();
+//		System.out.println("Save defect to file");
+//		qd.saveToExcel("defects.xlsx");
+//		qd.closeQuery();
+//		System.out.println("Finish!");
+		
+		System.out.println("Begin to get sky testset");
+		QueryTestSet qtestset = new QueryTestSet();
+		System.out.println("Save testset to file");
+		qtestset.saveToExcel("testsets.xlsx");
+		qtestset.closeQuery();
 		System.out.println("Finish!");
 		
 		
-//		Workbook wb = new HSSFWorkbook();
-//	    //Workbook wb = new XSSFWorkbook();
-//	    CreationHelper createHelper = wb.getCreationHelper();
-//	    Sheet sheet = wb.createSheet("new sheet");
-//
-//	    // Create a row and put some cells in it. Rows are 0 based.
-//	    Row row = sheet.createRow((short)0);
-//	    // Create a cell and put a value in it.
-//	    Cell cell = row.createCell(0);
-//	    cell.setCellValue(1);
-//
-//	    // Or do it on one line.
-//	    row.createCell(1).setCellValue(1.2);
-//	    row.createCell(2).setCellValue(
-//	         createHelper.createRichTextString("This is a string"));
-//	    row.createCell(3).setCellValue(true);
-//	    
-//	    Row row2 = sheet.createRow(1);
-//	    // Create a cell and put a value in it.
-//	    Cell cell1 = row2.createCell(0);
-//	    cell1.setCellValue(1);
-//
-//	    // Or do it on one line.
-//	    row2.createCell(1).setCellValue(1.2);
-//	    row2.createCell(2).setCellValue(
-//	         "This is a string");
-//	    row2.createCell(3).setCellValue(true);
-//
-//	    // Write the output to a file
-//	    FileOutputStream fileOut = new FileOutputStream("workbook.xls");
-//	    wb.write(fileOut);
-//	    fileOut.close();
+		
+		
 		
 	}
 

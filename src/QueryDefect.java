@@ -89,7 +89,9 @@ public class QueryDefect {
 				continue;
 			}
 			
-			System.out.println(String.format("\t%s - %s",
+			
+			System.out.println(String.format("\t%d - %s - %s",
+					j,
                     defect1.get("FormattedID").getAsString(),
                     defect1.get("Name").getAsString()));
 				
@@ -112,7 +114,6 @@ public class QueryDefect {
 				row.createCell(i).setCellValue(t02);
 			}
 			j++;
-			System.out.println(j);
                     
 		}
 		

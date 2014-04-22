@@ -1,0 +1,19 @@
+Create table ost_bugs (
+        id  INT primary key NOT NULL AUTO_INCREMENT,
+        Ticketid int,
+        Bugid varchar(20),
+        Name varchar(1024),
+        CreationDate date,
+        Priority varchar(40),
+        Severity varchar(40),
+        Area varchar(40),
+        State varchar(40),
+        Rejectagreed boolean,
+        Rejected bit,
+        Foundin varchar(40),
+        Submitter varchar(40),
+        `Release` varchar(40),
+        Tag varchar(140),
+        Note varchar(140),
+        Wk int  
+);

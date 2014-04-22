@@ -104,13 +104,16 @@ public class Test01 {
 //		qd.closeQuery();
 //		System.out.println("Finish!");
 		
-		System.out.println("Begin to get sky testset");
-		QueryTestSet qtestset = new QueryTestSet();
-		System.out.println("Save testset to file");
-		qtestset.saveToExcel("testsets.xlsx");
-		qtestset.closeQuery();
-		System.out.println("Finish!");
+//		System.out.println("Begin to get sky testset");
+//		QueryTestSet qtestset = new QueryTestSet();
+//		System.out.println("Save testset to file");
+//		qtestset.saveToExcel("testsets.xlsx");
+//		qtestset.closeQuery();
+//		System.out.println("Finish!");
 		
+//        BugData bug = new BugData();
+//        bug.setData("1","2","3","4","5","6","7","8","9","10","11");
+//        System.out.println(bug.formInsertString());
 		
 		
 		

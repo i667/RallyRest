@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="E:/eclipse_workspace/RallyRest/lib/mysql-connector-java-5.1.30-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

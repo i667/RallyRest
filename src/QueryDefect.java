@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import com.rallydev.rest.response.*;
 
@@ -35,7 +36,7 @@ public class QueryDefect {
 	
 	public QueryDefect() throws URISyntaxException{
 		this.rallyRest = new RallyConnector().getRally();
-		defect_fetch = new Fetch("FormattedID","Name","Severity", "Priority", "State", "SubmittedBy");
+		defect_fetch = new Fetch("FormattedID","Name", "CreationDate", "Priority", "Severity",  "State", "FoundInBuild", "SubmittedBy", "Release", "Tags", "Notes");
 		this.query();
 	}
 	
@@ -153,6 +154,11 @@ public class QueryDefect {
 //	public Hyperlink getHyperlinkFromRef(String ref){
 //		String oid = Ref.getOidFromRef(ref);
 //		String link = "https://rally1.rallydev.com/#/"
+//	}
+	
+//	public void sqlTest(){
+//		HashMap<String, String> map;
+//		map.
 //	}
 	
 	public void closeQuery() throws IOException{

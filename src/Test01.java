@@ -4,13 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
+<<<<<<< HEAD
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.rallydev.rest.RallyRestApi;
@@ -19,6 +14,8 @@ import com.rallydev.rest.response.QueryResponse;
 import com.rallydev.rest.util.Fetch;
 import com.rallydev.rest.util.QueryFilter;
 import com.rallydev.rest.util.Ref;
+=======
+>>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
 //import com.rallydev.rest.util.Ref;
 
 public class Test01 {
@@ -114,9 +111,7 @@ public class Test01 {
 //        BugData bug = new BugData();
 //        bug.setData("1","2","3","4","5","6","7","8","9","10","11");
 //        System.out.println(bug.formInsertString());
-		
-		
-		
+
 		
 	}
 

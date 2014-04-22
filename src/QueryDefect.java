@@ -19,7 +19,6 @@ import java.util.HashMap;
 import com.rallydev.rest.response.*;
 
 import org.apache.poi.*;
-import org.apache.poi.hslf.model.Hyperlink;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -43,7 +42,7 @@ public class QueryDefect {
 	public void query(){
 		qdefect = new QueryRequest("defect");
 		qdefect.setFetch(defect_fetch);
-		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT"));
+		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
 		qdefect.setOrder("FormattedID desc");
 //		qdefect.setPageSize(10);
 		qdefect.setLimit(5000);
@@ -86,12 +85,16 @@ public class QueryDefect {
 			JsonObject defect1 = je.getAsJsonObject();
 			
 //                    defect1.get("_ref").getAsString()));
-			if(!defect1.get("Name").getAsString().startsWith("RT")){
+			if(!defect1.get("Name").getAsString().startsWith("RT:")){
 				continue;
 			}
 			
+<<<<<<< HEAD
 			
 			System.out.println(String.format("\t%d - %s - %s",
+=======
+			System.out.println(String.format("\t%d\t%s - %s",
+>>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
 					j,
                     defect1.get("FormattedID").getAsString(),
                     defect1.get("Name").getAsString()));
@@ -115,6 +118,10 @@ public class QueryDefect {
 				row.createCell(i).setCellValue(t02);
 			}
 			j++;
+<<<<<<< HEAD
+=======
+//			System.out.println(j);
+>>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
                     
 		}
 		

@@ -18,12 +18,6 @@ import java.util.HashMap;
 
 import com.rallydev.rest.response.*;
 
-import org.apache.poi.*;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class QueryDefect {
 	
@@ -42,10 +36,11 @@ public class QueryDefect {
 	public void query(){
 		qdefect = new QueryRequest("defect");
 		qdefect.setFetch(defect_fetch);
-		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
+//		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
+		qdefect.setQueryFilter(new QueryFilter("FormattedID", "=", "de10204"));
 		qdefect.setOrder("FormattedID desc");
 //		qdefect.setPageSize(10);
-		qdefect.setLimit(5000);
+		qdefect.setLimit(10);
 		try {
 			response = rallyRest.query(qdefect);
 		} catch (IOException e) {
@@ -67,78 +62,69 @@ public class QueryDefect {
 		
 	}
 	
-	public void saveToExcel(String filename){
-		Workbook wb = new XSSFWorkbook();
-		CreationHelper helper = wb.getCreationHelper();
-		
-		Sheet sheet1 = wb.createSheet("Sheet1");
-		
-		//set headers
-		Row row1 = sheet1.createRow(0);
-		for(int i = 0; i < 6; i++){
-			row1.createCell(i).setCellValue(defect_fetch.get(i));
-//			row1.createCell(i).set
-		}
-		
-		int j = 1;
-		for(JsonElement je : response.getResults()){
-			JsonObject defect1 = je.getAsJsonObject();
-			
-//                    defect1.get("_ref").getAsString()));
-			if(!defect1.get("Name").getAsString().startsWith("RT:")){
-				continue;
-			}
-			
-<<<<<<< HEAD
-			
-			System.out.println(String.format("\t%d - %s - %s",
-=======
-			System.out.println(String.format("\t%d\t%s - %s",
->>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
-					j,
-                    defect1.get("FormattedID").getAsString(),
-                    defect1.get("Name").getAsString()));
-				
-			Row row = sheet1.createRow(j);
-			for(int i = 0; i < 6; i++){
-				String t01 = defect_fetch.get(i);
-				String t02 = null;
-//				System.out.println("fetch: " + t01);
-				if(i == 5){
-					if(defect1.has(t01) && defect1.get(t01).isJsonObject()){
-						t02 = getNameFromObject(defect1.get(t01).getAsJsonObject());
-					}else{
-						t02 = "";
-					}
-					
-				}else{
-					t02 = defect1.get(t01).getAsString();
-				}
-//				System.out.println("content: " + t02);
-				row.createCell(i).setCellValue(t02);
-			}
-			j++;
-<<<<<<< HEAD
-=======
-//			System.out.println(j);
->>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
-                    
-		}
-		
-		try {
-			FileOutputStream fos = new FileOutputStream(filename);
-			wb.write(fos);
-			fos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
+//	public void saveToExcel(String filename){
+//		Workbook wb = new XSSFWorkbook();
+//		CreationHelper helper = wb.getCreationHelper();
+//		
+//		Sheet sheet1 = wb.createSheet("Sheet1");
+//		
+//		//set headers
+//		Row row1 = sheet1.createRow(0);
+//		for(int i = 0; i < 6; i++){
+//			row1.createCell(i).setCellValue(defect_fetch.get(i));
+////			row1.createCell(i).set
+//		}
+//		
+//		int j = 1;
+//		for(JsonElement je : response.getResults()){
+//			JsonObject defect1 = je.getAsJsonObject();
+//			
+////                    defect1.get("_ref").getAsString()));
+//			if(!defect1.get("Name").getAsString().startsWith("RT:")){
+//				continue;
+//			}
+//			
+//			System.out.println(String.format("\t%d\t%s - %s",
+//					j,
+//                    defect1.get("FormattedID").getAsString(),
+//                    defect1.get("Name").getAsString()));
+//				
+//			Row row = sheet1.createRow(j);
+//			for(int i = 0; i < 6; i++){
+//				String t01 = defect_fetch.get(i);
+//				String t02 = null;
+////				System.out.println("fetch: " + t01);
+//				if(i == 5){
+//					if(defect1.has(t01) && defect1.get(t01).isJsonObject()){
+//						t02 = getNameFromObject(defect1.get(t01).getAsJsonObject());
+//					}else{
+//						t02 = "";
+//					}
+//					
+//				}else{
+//					t02 = defect1.get(t01).getAsString();
+//				}
+////				System.out.println("content: " + t02);
+//				row.createCell(i).setCellValue(t02);
+//			}
+//			j++;
+//                    
+//		}
+//		
+//		try {
+//			FileOutputStream fos = new FileOutputStream(filename);
+//			wb.write(fos);
+//			fos.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//	}
 	
-	public String getNameFromObject(JsonObject obj){
+	public String getNameFromObject(JsonObject obj, String field){
         String subRef = obj.get("_ref").getAsString();
         GetRequest subRequest = new GetRequest(subRef);
         GetResponse subResponse = null;
@@ -150,9 +136,9 @@ public class QueryDefect {
 		}
         JsonObject subObj = subResponse.getObject();
         
-        if(!subObj.isJsonNull() && subObj.has("EmailAddress"))
+        if(!subObj.isJsonNull() && subObj.has(field))
         {
-        	return subObj.get("EmailAddress").getAsString();
+        	return subObj.get(field).getAsString();
         }
         
         return "";
@@ -163,13 +149,49 @@ public class QueryDefect {
 //		String link = "https://rally1.rallydev.com/#/"
 //	}
 	
-//	public void sqlTest(){
-//		HashMap<String, String> map;
-//		map.
-//	}
+	public void save(){
+		int j = 1;
+		for(JsonElement je : response.getResults()){
+			JsonObject def = je.getAsJsonObject();
+			
+//			if(!defect1.get("Name").getAsString().startsWith("RT:")){
+//				continue;
+//			}
+			
+			System.out.println(String.format("\t%d\t%s - %s",
+					j,
+                    def.get("FormattedID").getAsString(),
+                    def.get("Name").getAsString()));
+				
+			
+			BugData bug = new BugData();
+			bug.setId(def.get("FormattedID").getAsString());
+			bug.setName(def.get("Name").getAsString());
+			bug.setCreationDate(def.get("CreationDate").getAsString());
+			bug.setPriority(def.get("Priority").getAsString());
+			bug.setSeverity(def.get("Severity").getAsString());
+			bug.setSeverity(def.get("State").getAsString());
+			bug.setSeverity(def.get("FoundInBuild").getAsString());
+			bug.setSubmitter(def.get("SubmittedBy").getAsJsonObject().get("_refObjectName").getAsString());
+			
+			j++;
+		}
+	}
+	
+	public void printJson(){
+		System.out.println(response.getResults().toString());
+	}
 	
 	public void closeQuery() throws IOException{
 		rallyRest.close();
+	}
+	
+	public String convertDate(String strDate){
+		String[] array = strDate.split("T");
+		StringBuffer strbuf = new StringBuffer(array[1]);
+		strbuf.deleteCharAt(strbuf.length()-1);
+		return array[0] + " " + strbuf.toString();
+		
 	}
 	
 

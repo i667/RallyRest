@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
-<<<<<<< HEAD
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.rallydev.rest.RallyRestApi;
@@ -14,9 +13,6 @@ import com.rallydev.rest.response.QueryResponse;
 import com.rallydev.rest.util.Fetch;
 import com.rallydev.rest.util.QueryFilter;
 import com.rallydev.rest.util.Ref;
-=======
->>>>>>> branch 'master' of https://github.com/i667/RallyRest.git
-//import com.rallydev.rest.util.Ref;
 
 public class Test01 {
 
@@ -26,7 +22,7 @@ public class Test01 {
 //        String username = "tttvan@tma.com.vn";
 //        String password = "Ktn@051628";
 //        String wsapiVersion = "v2.0";
-        String RingoProjectRef = "/project/7803686457";
+//        String RingoProjectRef = "/project/7803686457";
 //        String SoftswitchProjectRef = "/project/9808582196";
 //        String SkyProjectRef = "/project/7803241224";
 ////        String workspaceRef = "/workspace/ShoreTel"; 
@@ -96,8 +92,9 @@ public class Test01 {
 //		
 //		System.out.println("Begin to get defects");
 //		QueryDefect qd = new QueryDefect();
-//		System.out.println("Save defect to file");
-//		qd.saveToExcel("defects.xlsx");
+//		System.out.println("Print json");
+////		qd.saveToExcel("defects.xlsx");
+//		qd.printJson();
 //		qd.closeQuery();
 //		System.out.println("Finish!");
 		
@@ -108,9 +105,11 @@ public class Test01 {
 //		qtestset.closeQuery();
 //		System.out.println("Finish!");
 		
-//        BugData bug = new BugData();
+        BugData bug = new BugData();
 //        bug.setData("1","2","3","4","5","6","7","8","9","10","11");
-//        System.out.println(bug.formInsertString());
+        bug.setId("DE8900");
+        bug.setName("This is a name");
+        System.out.println(bug.formInsertString());
 
 		
 	}

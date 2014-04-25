@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.rallydev.rest.RallyRestApi;
@@ -14,6 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 import com.rallydev.rest.response.*;
@@ -26,21 +31,41 @@ public class QueryDefect {
 	Fetch defect_fetch;
 	QueryRequest qdefect;
 	QueryResponse response;
+//	BugData bug;
+	String url = "jdbc:mysql://localhost:3306/test";
+    String user = "root";
+    String password = "";
+    boolean connected = true;
+    Connection conn = null;
+//    Statement st = null;
 	
 	public QueryDefect() throws URISyntaxException{
 		this.rallyRest = new RallyConnector().getRally();
+//		bug = new BugData();
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+//			st = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			connected = false;
+		}
 		defect_fetch = new Fetch("FormattedID","Name", "CreationDate", "Priority", "Severity",  "State", "FoundInBuild", "SubmittedBy", "Release", "Tags", "Notes");
 		this.query();
 	}
 	
+//	public BugData getBugData() {
+//		return this.bug;
+//	}
+	
 	public void query(){
 		qdefect = new QueryRequest("defect");
 		qdefect.setFetch(defect_fetch);
-//		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
-		qdefect.setQueryFilter(new QueryFilter("FormattedID", "=", "de10204"));
+		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
+//		qdefect.setQueryFilter(new QueryFilter("FormattedID", "=", "de8916"));
 		qdefect.setOrder("FormattedID desc");
-//		qdefect.setPageSize(10);
-		qdefect.setLimit(10);
+//		qdefect.setPageSize(1);
+		qdefect.setLimit(5000);
 		try {
 			response = rallyRest.query(qdefect);
 		} catch (IOException e) {
@@ -144,37 +169,32 @@ public class QueryDefect {
         return "";
 	}
 	
-//	public Hyperlink getHyperlinkFromRef(String ref){
-//		String oid = Ref.getOidFromRef(ref);
-//		String link = "https://rally1.rallydev.com/#/"
-//	}
 	
-	public void save(){
+	public void pushToDb(){
 		int j = 1;
 		for(JsonElement je : response.getResults()){
 			JsonObject def = je.getAsJsonObject();
 			
-//			if(!defect1.get("Name").getAsString().startsWith("RT:")){
-//				continue;
-//			}
-			
+			if(!def.get("Name").getAsString().startsWith("RT:")){
+				continue;
+			}
+			//print to check
 			System.out.println(String.format("\t%d\t%s - %s",
 					j,
                     def.get("FormattedID").getAsString(),
                     def.get("Name").getAsString()));
-				
 			
 			BugData bug = new BugData();
-			bug.setId(def.get("FormattedID").getAsString());
-			bug.setName(def.get("Name").getAsString());
-			bug.setCreationDate(def.get("CreationDate").getAsString());
-			bug.setPriority(def.get("Priority").getAsString());
-			bug.setSeverity(def.get("Severity").getAsString());
-			bug.setSeverity(def.get("State").getAsString());
-			bug.setSeverity(def.get("FoundInBuild").getAsString());
-			bug.setSubmitter(def.get("SubmittedBy").getAsJsonObject().get("_refObjectName").getAsString());
-			
+			bug.saveWithJson(def);
+			if(!bug.exists(conn)){
+				System.out.println("Not exist, insert to db");
+				bug.insertToDb(conn);
+			}else{
+				System.out.println("Update to db");
+				bug.updateToDb(conn);
+			}
 			j++;
+			
 		}
 	}
 	
@@ -184,15 +204,14 @@ public class QueryDefect {
 	
 	public void closeQuery() throws IOException{
 		rallyRest.close();
+		try{
+			if(conn != null){
+				conn.close();
+			}
+				
+		}catch(SQLException e){
+			
+		}
 	}
-	
-	public String convertDate(String strDate){
-		String[] array = strDate.split("T");
-		StringBuffer strbuf = new StringBuffer(array[1]);
-		strbuf.deleteCharAt(strbuf.length()-1);
-		return array[0] + " " + strbuf.toString();
-		
-	}
-	
 
 }

@@ -11,15 +11,22 @@ import com.rallydev.rest.util.Fetch;
 import com.rallydev.rest.util.QueryFilter;
 import com.rallydev.rest.util.Ref;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Properties;
 
 import com.rallydev.rest.response.*;
 
@@ -31,38 +38,60 @@ public class QueryDefect {
 	Fetch defect_fetch;
 	QueryRequest qdefect;
 	QueryResponse response;
-//	BugData bug;
 	String url = "jdbc:mysql://localhost:3306/test";
     String user = "root";
     String password = "";
     boolean connected = true;
     Connection conn = null;
-//    Statement st = null;
+    Properties configs;
 	
 	public QueryDefect() throws URISyntaxException{
 		this.rallyRest = new RallyConnector().getRally();
 //		bug = new BugData();
-		try {
-			conn = DriverManager.getConnection(url, user, password);
-//			st = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			connected = false;
-		}
+//		try {
+//			conn = DriverManager.getConnection(url, user, password);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			connected = false;
+//		}
 		defect_fetch = new Fetch("FormattedID","Name", "CreationDate", "Priority", "Severity",  "State", "FoundInBuild", "SubmittedBy", "Release", "Tags", "Notes");
-		this.query();
+		configs = new Properties();
+		readConfig();
 	}
 	
 //	public BugData getBugData() {
 //		return this.bug;
 //	}
 	
+	public boolean openConnection(){
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+//		if(conn != null){
+//			System.out.println("Connect to db OK!");
+//			try {
+//				conn.close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return true;
+//		}else{
+//			System.out.println("Problem connect to db");
+//			return false;
+//		}
+	}
+	
 	public void query(){
 		qdefect = new QueryRequest("defect");
 		qdefect.setFetch(defect_fetch);
-		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
-//		qdefect.setQueryFilter(new QueryFilter("FormattedID", "=", "de8916"));
+//		qdefect.setQueryFilter(new QueryFilter("Name", "contains", "RT:"));
+		qdefect.setQueryFilter(new QueryFilter("FormattedID", "=", "de8916"));
 		qdefect.setOrder("FormattedID desc");
 //		qdefect.setPageSize(1);
 		qdefect.setLimit(5000);
@@ -211,6 +240,63 @@ public class QueryDefect {
 				
 		}catch(SQLException e){
 			
+		}
+	}
+	
+	public void readConfig(){
+//		configs = new Properties();
+		FileInputStream fis = null;
+		File fileconfig = new File("config.cfg");
+		if(!fileconfig.exists()){
+			createDefaultConfigs();
+			return;
+		}
+		
+		try{
+			fis = new FileInputStream("config.cfg");
+			configs.load(fis);
+			this.url = String.format("jdbc:mysql://%s:3306/%s", configs.getProperty("host"), configs.getProperty("database"));
+			this.user = configs.getProperty("username");
+			this.password = configs.getProperty("password");
+			
+		} catch(FileNotFoundException fnf){
+			fnf.printStackTrace();
+		} catch (IOException ioe){
+			ioe.printStackTrace();
+		}finally{
+			if(fis != null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	public void createDefaultConfigs(){
+		OutputStream outs = null;
+		try{
+			outs = new FileOutputStream("config.cfg");
+			configs.setProperty("host", "localhost");
+			configs.setProperty("username", "root");
+			configs.setProperty("password", "");
+			configs.setProperty("database", "test");
+			configs.store(outs, null);
+		}catch(FileNotFoundException fnf){
+			fnf.printStackTrace();
+		}catch(IOException ioe){
+			ioe.printStackTrace();
+		}finally{
+			if(outs != null){
+				try {
+					outs.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

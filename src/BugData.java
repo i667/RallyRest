@@ -110,7 +110,7 @@ public class BugData {
 		try {
 			st = conn.createStatement();
 			String insertStr = formInsertString();
-			System.out.println("Executr this:\n" + insertStr);
+			System.out.println("Execute this:\n" + insertStr);
 			st.execute(formInsertString());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

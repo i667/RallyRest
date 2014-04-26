@@ -19,15 +19,6 @@ public class Test01 {
 
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		
-//		
-//		System.out.println("Begin to get defects");
-//		QueryDefect qd = new QueryDefect();
-//		System.out.println("Print json");
-////		qd.saveToExcel("defects.xlsx");
-//		qd.printJson();
-//		qd.closeQuery();
-//		System.out.println("Finish!");
-		
 //		System.out.println("Begin to get sky testset");
 //		QueryTestSet qtestset = new QueryTestSet();
 //		System.out.println("Save testset to file");
@@ -43,16 +34,19 @@ public class Test01 {
 //        qd.save();
         
 		QueryDefect qd = new QueryDefect();
-        qd.pushToDb();
+		if(qd.openConnection()){
+			System.out.println("Check connection ok!");
+			qd.query();
+			qd.pushToDb();
+			System.out.println("Close query!");
+	        qd.closeQuery();
+		}
+		else{
+			System.out.println("Check connection fail!");
+		}
+        
 //		qd.printJson();
-        System.out.println("Close query!");
-        qd.closeQuery();
 		
-//		String test = "it's me";
-//		System.out.println("before: " + test);
-//		
-//		test = test.replace("\'", "\\\'");
-//		System.out.println("after: " + test);
 	}
 
 }

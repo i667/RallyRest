@@ -34,7 +34,10 @@ public class MainRally {
 //		}
 		
 		QueryTestSet1 qts = new QueryTestSet1();
+		qts.printJson();
 		qts.printTCJson();		
+		qts.printTC(qts.getTCJson());
+		
 //		System.out.println("Save to excel...");
 //		qts.saveToExcel("testset.xlsx");
 		System.out.println("Finish!");

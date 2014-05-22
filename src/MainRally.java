@@ -1,21 +1,9 @@
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.rallydev.rest.RallyRestApi;
-import com.rallydev.rest.request.QueryRequest;
-import com.rallydev.rest.response.QueryResponse;
-import com.rallydev.rest.util.Fetch;
-import com.rallydev.rest.util.QueryFilter;
-import com.rallydev.rest.util.Ref;
-
-public class Test01 {
+public class MainRally {
 
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		
@@ -33,17 +21,24 @@ public class Test01 {
 //        bug.setName("This is a name");
 //        qd.save();
         
-		QueryDefect qd = new QueryDefect();
-		if(qd.openConnection()){
-			System.out.println("Check connection ok!");
-			qd.query();
-			qd.pushToDb();
-			System.out.println("Close query!");
-	        qd.closeQuery();
-		}
-		else{
-			System.out.println("Check connection fail!");
-		}
+//		QueryDefect qd = new QueryDefect();
+//		if(qd.openConnection()){
+//			System.out.println("Check connection ok!");
+//			qd.query();
+//			qd.pushToDb();
+//			System.out.println("Close query!");
+//	        qd.closeQuery();
+//		}
+//		else{
+//			System.out.println("Check connection fail!");
+//		}
+		
+		QueryTestSet1 qts = new QueryTestSet1();
+		qts.printTCJson();		
+//		System.out.println("Save to excel...");
+//		qts.saveToExcel("testset.xlsx");
+		System.out.println("Finish!");
+		qts.closeQuery();
         
 //		qd.printJson();
 		

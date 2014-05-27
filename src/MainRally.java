@@ -1,47 +1,49 @@
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainRally {
 
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		
-//		System.out.println("Begin to get sky testset");
-//		QueryTestSet qtestset = new QueryTestSet();
-//		System.out.println("Save testset to file");
-//		qtestset.closeQuery();
-//		System.out.println("Finish!");
+		String usage = "Usage: java -jar QueryTC.jar <testset1[,testset2...]>";
+		if(args.length != 1){
+			System.out.println("1"+usage);
+			return;
+		}
+		String arg = args[0];
+		if(!arg.matches("[a-zA-Z0-9,]*")){
+			System.out.println(usage);
+			return;
+		}
 		
-//        BugData bug = new BugData();
-        
-//        bug.setData("1","2","3","4","5","6","7","8","9","10","11");
-//        System.out.println(bug.formUpdateString());
-//        bug.setId("DE8900");
-//        bug.setName("This is a name");
-//        qd.save();
-        
-//		QueryDefect qd = new QueryDefect();
-//		if(qd.openConnection()){
-//			System.out.println("Check connection ok!");
-//			qd.query();
-//			qd.pushToDb();
-//			System.out.println("Close query!");
-//	        qd.closeQuery();
-//		}
-//		else{
-//			System.out.println("Check connection fail!");
-//		}
+		String[] all_testset = arg.split(",");
+		List<String> tc_list = new ArrayList<String>();
+		for(int i=0; i < all_testset.length; i++){
+			System.out.println("Process TestSet "+all_testset[i]);
+			QueryTestSet1 qts = new QueryTestSet1(all_testset[i]);
+			qts.processAllTC();
+			tc_list.addAll(qts.getList());
+			qts.closeQuery();
+		}
 		
-		QueryTestSet1 qts = new QueryTestSet1();
-		qts.printJson();
-		qts.printTCJson();		
-		qts.printTC(qts.getTCJson());
-		
-//		System.out.println("Save to excel...");
-//		qts.saveToExcel("testset.xlsx");
+		System.out.println("Save to excel file: Export.xlsx");
+		QueryTestSet1.saveToExcel("Export.xlsx", tc_list);
+//		QueryTestSet1.printList(tc_list);
 		System.out.println("Finish!");
-		qts.closeQuery();
+		
+		
+//		QueryTestSet1 qts = new QueryTestSet1();
+//		qts.processAllTC();
+//		qts.printList();
+//		qts.saveToExcel("export.xlsx");
+//		qts.isRun(null);
+		
+//		System.out.println("Finish!");
+//		qts.closeQuery();
         
 //		qd.printJson();
 		
